@@ -5,8 +5,8 @@ defaults: &defaults
 
 version: 2.0
 jobs:
-  <<: *defaults
   install:
+    <<: *defaults
     docker:
       - image: circleci/node:10.2
     working_directory: ~/repo
@@ -23,7 +23,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - persist_to_workspace:
-          paths: node_modules
+          root: .
+          paths: .
+
   test:
     <<: *defaults
     steps:
